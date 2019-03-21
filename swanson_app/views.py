@@ -1,5 +1,6 @@
 from datetime import datetime
-from flask import Flask, render_template
+from flask import Flask, render_template, session, request, url_for, redirect, jsonify
+import re
 from . import app
 
 @app.route("/")
@@ -7,7 +8,6 @@ def home():
     return "Hello flask!"
 
 
-@app.route("/hello/")
 @app.route("/hello/<name>")
 def hello_there(name):
     now = datetime.now()
