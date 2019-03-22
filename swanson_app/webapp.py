@@ -14,6 +14,3 @@ Session(app)
 # Set up database
 engine = create_engine('postgres://qthodnlzusljrm:cc6e8a1e7e11920cb59542a4a85ece93c0df62afa20e7fc8ae11af6db0a0443a@ec2-23-23-241-119.compute-1.amazonaws.com:5432/depb4gum4t8d8k')
 db = scoped_session(sessionmaker(bind=engine))
-
-# Time-saver: output a URL to the VS Code terminal so you can easily Ctrl+click to open a browser
-print('http://127.0.0.1:5000/hello/VSCode')
