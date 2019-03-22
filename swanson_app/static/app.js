@@ -50,6 +50,22 @@ class App extends React.Component {
         return (
             <div className="quote-box">
                 <h2>{ items.quote }</h2>
+                <h4>- { items.author }</h4>
+                <h4> {items.word_count}</h4>
+                <h4>Rating: 5 / 5</h4>
+                <button onClick={() => {this.componentDidMount(); this.setState({isLoaded: false});}}>
+                    Click here to get a random quote!
+                </button>
+                <br />
+                <button onClick={() => {this.setState({isLoaded: false}); this.callBig();}}>
+                Big Quote
+                </button>
+                <button onClick={() => {this.setState({isLoaded: false}); this.callMed();}}>
+                Medium Quote
+                </button>
+                <button onClick={() => {this.setState({isLoaded: false}); this.callSmall();}}>
+                Small Quote
+                </button>
             </div>
             
         );

@@ -42,9 +42,13 @@ def get_quote():
     word_count = line[0][2]
     
     print(line[0][1])
-    return jsonify({
+    response = jsonify({
         "id": quote_id,
         "quote": quote,
         "word_count": word_count,
         "author": "Ron Swanson"
     })
+
+    response.headers.add("Access-Control-Allow-Origin", "*")
+
+    return response
