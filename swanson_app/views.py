@@ -25,6 +25,6 @@ def hello_there(name):
     content = "Hello there, " + clean_name + "! It's " + formatted_now
     return content
 
-# @app.route("/api/data")
-# def get_data():
-#     return app.send_static_file("data.json")
+@app.route("/api/data")
+def get_data():
+    return app.send_static_file("data.json")
