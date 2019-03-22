@@ -1,4 +1,3 @@
-
 import os
 
 from sqlalchemy import create_engine
@@ -6,7 +5,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 # engine maintains connection to db
 # set DB_URL in terminal
-engine = create_engine("postgres://qthodnlzusljrm:cc6e8a1e7e11920cb59542a4a85ece93c0df62afa20e7fc8ae11af6db0a0443a@ec2-23-23-241-119.compute-1.amazonaws.com:5432/depb4gum4t8d8k")
+engine = create_engine(os.getenv("URI HERE"))
 db = scoped_session(sessionmaker(bind=engine))
 
 def main():

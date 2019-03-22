@@ -41,7 +41,37 @@ def get_quote():
     quote = line[0][1]
     word_count = line[0][2]
     
-    print(line[0][1])
+    response = jsonify({
+        "id": quote_id,
+        "quote": quote,
+        "word_count": word_count,
+        "author": "Ron Swanson"
+    })
+
+    response.headers.add("Access-Control-Allow-Origin", "*")
+
+    return response
+
+@app.route("/api/<quote_size>")
+def get_quote_sized(quote_size):
+    print(quote_size)
+    if quote_size == "large":
+        line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length > 12) order by RANDOM() LIMIT 1").fetchone()
+        print(line)
+    elif quote_size == "medium":
+        line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length < 13 and quote_length > 4) order by RANDOM() LIMIT 1").fetchone()
+    elif quote_size == "small":
+        line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length < 5) order by RANDOM() LIMIT 1").fetchone()
+    else:
+        return redirect("/")
+
+    # get random index from 0 to array length
+    #rand = random.randint(0, len(line))
+
+    quote_id = line[0]
+    quote = line[1]
+    word_count = line[2]
+
     response = jsonify({
         "id": quote_id,
         "quote": quote,
