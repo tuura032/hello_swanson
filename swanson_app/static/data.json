@@ -1,5 +1,5 @@
 {
-    "01": {
-        "note" : "Data is very simple because we're demonstrating only the mechanism."
+    "items": {
+        "note" : "Data taken from api/data and displayed on index.html"
     }
 }
