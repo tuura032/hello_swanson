@@ -15,7 +15,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = "https://hello-swanson.herokuapp.com/api/data";
+    const url = "https://hello-swanson.herokuapp.com/api/quote";
     const url2 = "https://127.0.0.1:5000/api/data";
     fetch(proxyurl + url)
       .then(res => res.json())
@@ -23,7 +23,7 @@ class App extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result.items
+            items: result // was result.items, referencing data.json
           });
         },
         // Note: it's important to handle errors here
@@ -49,7 +49,7 @@ class App extends React.Component {
     } else {
         return (
             <div className="quote-box">
-                <h2>{ items.note }</h2>
+                <h2>{ items.quote }</h2>
             </div>
             
         );
