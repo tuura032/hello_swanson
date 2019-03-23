@@ -8,20 +8,23 @@ class App extends React.Component {
     this.state = { 
         error: null,
         isLoaded: false,
+        hasVoted: false,
         items: []
     };
   }
 
   componentDidMount() {
     //const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = "https://hello-swanson.herokuapp.com/api/quote";
+    //const url = "https://hello-swanson.herokuapp.com/api/quote";
+    const url = "http://127.0.0.1:5000/api/quote"
     fetch(url)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result // was result.items, referencing data.json
+            items: result,
+            hasVoted: false
           });
         },
         (error) => {
@@ -34,14 +37,16 @@ class App extends React.Component {
   }
 
   callApi(size) {
-    const url = 'https://hello-swanson.herokuapp.com/api/'
+    //const url = 'https://hello-swanson.herokuapp.com/api/'
+    const url = "http://127.0.0.1:5000/api/";
     fetch(url + size)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result // was result.items, referencing data.json
+            items: result ,
+            hasVoted: false
           });
         },
         (error) => {
@@ -54,7 +59,8 @@ class App extends React.Component {
   }
 
   vote(rating) {
-    fetch('https://hello-swanson.herokuapp.com/api/rating', {
+    //fetch('https://hello-swanson.herokuapp.com/api/rating', {
+    fetch('http://127.0.0.1:5000/api/rating', {
         method: 'POST',
         headers: {
         Accept: 'application/json',
@@ -63,12 +69,19 @@ class App extends React.Component {
         body: JSON.stringify({
         user_rating: rating,
         quote_id: this.state.items.id
-        }),
+        })
     });
+    this.setState({hasVoted: true});
   }
   
   render() {
-    const { error, isLoaded, items } = this.state;
+    const { error, isLoaded, items, hasVoted } = this.state;
+    var message;
+    if (hasVoted && (items.user_rating === "Not yet rated")) {
+        message = "Thank you for voting!";
+    } else if (hasVoted) {
+        message = "You already voted!"
+    }
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -78,13 +91,16 @@ class App extends React.Component {
             <div className="quote-box">
                 <h2>{ items.quote }</h2>
                 <h4>- { items.author }</h4>
-                <h4> {items.word_count}</h4>
-                <h4> QID {items.id}</h4>
-                <h4>Rating: {items.average_rating} / 5</h4>
-                <button onClick={() => {this.callApi('quote')}}>
-                    Click here to get a random quote!
-                </button>
+                <h5> (Word Count: {items.word_count})</h5>
                 <br />
+                <h3>Rating</h3>
+                <h4>Average Rating: {items.average_rating} / 5</h4>
+                <h4>Your Rating: {items.user_rating}</h4>
+                <br />
+                <h3>Click below to get a new quote!</h3>
+                <button onClick={() => {this.callApi('quote')}}>
+                    Random Quote
+                </button>
                 <button onClick={() => {this.callApi('large')}}>
                 Big Quote
                 </button>
@@ -94,12 +110,15 @@ class App extends React.Component {
                 <button onClick={() => {this.callApi('small')}}>
                 Small Quote
                 </button>
-                <br />
+                <br /><br />
+                <h4>How do you like this quote? (Only 1 vote per user)</h4>
                 <button onClick={() => {this.vote(1)}}>1 Star</button>
                 <button onClick={() => {this.vote(2)}}>2 Stars</button>
                 <button onClick={() => {this.vote(3)}}>3 Stars</button>
                 <button onClick={() => {this.vote(4)}}>4 Stars</button>
                 <button onClick={() => {this.vote(5)}}>5 Stars</button>
+                <br />
+                {message}
             </div>
             
         );
