@@ -15,7 +15,7 @@ class App extends React.Component {
   componentDidMount() {
     //const proxyurl = "https://cors-anywhere.herokuapp.com/";
     const url = "https://hello-swanson.herokuapp.com/api/quote";
-    fetch(url + urlEndpoint)
+    fetch(url)
       .then(res => res.json())
       .then(
         (result) => {
