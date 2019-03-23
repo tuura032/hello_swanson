@@ -88,8 +88,9 @@ def rating():
         rating = request.get_json()["user_rating"]
         #uniqueId = request.get_json()["ip"]
         print(rating)
-        header = request.data
+        header = request.headers.get('Content-Type')
         print(header)
         print(request.environ['REMOTE_ADDR'])
+        print(request.environ.get('HTTP_X_REAL_IP', request.remote_addr))
         print(request.remote_addr)
         return str(header)
