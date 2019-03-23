@@ -1,4 +1,7 @@
 from flask import Flask, render_template, session, request, url_for, redirect, jsonify
+from flask_session import Session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
 import random
 from . import app
 from . import webapp
@@ -13,9 +16,10 @@ def get_quote():
     
     # retrieve quote of random id
     id = random.randint(1, 58)
-    line = webapp.db.execute("select * from quotes where id = :id", \
-        {"id": id}).fetchone()
-
+    try:
+        line = webapp.db.execute("select * from quotes where id = :id", {"id": id}).fetchone()
+    except:
+        line = (1, "Something went wrong", 3)
     print(line)
 
     # factor out quote information

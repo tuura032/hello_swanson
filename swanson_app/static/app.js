@@ -121,6 +121,7 @@ class App extends React.Component {
                 <br />                
                 {message}
                 <br />
+                <br />
                 <h4>Average Rating: {items.average_rating} / 5</h4>
                 <h4>Your Rating: {items.user_rating}</h4>
                 <br />
