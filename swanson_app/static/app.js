@@ -87,8 +87,6 @@ class App extends React.Component {
     var message;
     if (this.state.displayVoteMessage && (!items.has_voted)) {
          message = "Thank you for voting!";
-    } else if (items.has_voted) {
-         message = "You already voted!"
     } else {
          message = ""
     }
