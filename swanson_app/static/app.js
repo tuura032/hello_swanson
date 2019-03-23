@@ -60,7 +60,8 @@ class App extends React.Component {
   }
 
   vote(rating) {
-    fetch('https://hello-swanson.herokuapp.com/api/rating', {
+    //fetch('https://hello-swanson.herokuapp.com/api/rating', {
+    fetch('http://127.0.0.1:5000/api/rating', {
         method: 'POST',
         headers: {
         Accept: 'application/json',
@@ -100,7 +101,9 @@ class App extends React.Component {
                 </button>
                 <br />
                 <button onClick={() => {this.vote(1)}}>1 Star</button>
+                <button onClick={() => {this.vote(2)}}>2 Stars</button>
                 <button onClick={() => {this.vote(3)}}>3 Stars</button>
+                <button onClick={() => {this.vote(4)}}>4 Stars</button>
                 <button onClick={() => {this.vote(5)}}>5 Stars</button>
             </div>
             

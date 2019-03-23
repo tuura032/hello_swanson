@@ -83,6 +83,13 @@ def get_quote_sized(quote_size):
 @app.route("/api/rating", methods = ["GET", "POST"])
 def rating():
     if request.method == "POST":
-        header = request.form.get("user_rating")
+        
+        # receive post request
+        rating = request.get_json()["user_rating"]
+        #uniqueId = request.get_json()["ip"]
+        print(rating)
+        header = request.data
         print(header)
-        return True
+        print(request.environ['REMOTE_ADDR'])
+        print(request.remote_addr)
+        return str(header)
