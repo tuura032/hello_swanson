@@ -8,7 +8,7 @@ class App extends React.Component {
     this.state = { 
         error: null,
         isLoaded: false,
-        hasVoted: false,
+        //hasVoted: false,
         items: []
     };
   }
@@ -44,8 +44,8 @@ class App extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result ,
-            hasVoted: false
+            items: result
+            //hasVoted: false
           });
         },
         (error) => {
@@ -58,6 +58,8 @@ class App extends React.Component {
   }
 
   vote(rating) {
+    console.log(this.state.items.user_rating);
+    
     fetch('https://hello-swanson.herokuapp.com/api/rating', {
     //fetch('http://127.0.0.1:5000/api/rating', {
         method: 'POST',
@@ -70,20 +72,20 @@ class App extends React.Component {
         quote_id: this.state.items.id
         })
     });
-    this.setState({hasVoted: true, isLoaded: false});
-    this.componentDidMount();
+    //this.setState({hasVoted: true, isLoaded: false});
+    //this.componentDidMount();
   }
   
   render() {
-    const { error, isLoaded, items, hasVoted } = this.state;
+    const { error, isLoaded, items } = this.state;
     var message;
-    if (hasVoted && (items.user_rating === "Not yet rated")) {
-        message = "Thank you for voting!";
-    } else if (hasVoted) {
-        message = "You already voted!"
-    } else {
-        message = ""
-    }
+    // if (hasVoted && (items.user_rating === "Not yet rated")) {
+    //     message = "Thank you for voting!";
+    // } else if (hasVoted) {
+    //     message = "You already voted!"
+    // } else {
+    //     message = ""
+    // }
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -121,8 +123,6 @@ class App extends React.Component {
                 <button onClick={() => {this.vote(4)}}>4 Stars</button>
                 <button onClick={() => {this.vote(5)}}>5 Stars</button>
                 <br />                
-                {message}
-                <br />
                 <br />
                 <h4>Average Rating: {items.average_rating} / 5</h4>
                 <h4>Your Rating: {items.user_rating}</h4>
