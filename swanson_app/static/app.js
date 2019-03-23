@@ -6,7 +6,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-        urlEndpoint: "quote",
         error: null,
         isLoaded: false,
         items: []
@@ -15,9 +14,7 @@ class App extends React.Component {
 
   componentDidMount() {
     //const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = "https://hello-swanson.herokuapp.com/api/";
-    const { urlEndpoint } = this.state;
-    console.log(urlEndpoint);
+    const url = "https://hello-swanson.herokuapp.com/api/quote";
     fetch(url + urlEndpoint)
       .then(res => res.json())
       .then(
@@ -27,9 +24,6 @@ class App extends React.Component {
             items: result // was result.items, referencing data.json
           });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           this.setState({
             isLoaded: true,
@@ -60,15 +54,16 @@ class App extends React.Component {
   }
 
   vote(rating) {
-    fetch('https://hello-swanson.herokuapp.com/api/rating', {
-    //fetch('http://127.0.0.1:5000/api/rating', {
+    //fetch('https://hello-swanson.herokuapp.com/api/rating', {
+    fetch('http://127.0.0.1:5000/api/rating', {
         method: 'POST',
         headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-        user_rating: rating
+        user_rating: rating,
+        quote_id: this.state.items.id
         }),
     });
   }
@@ -85,7 +80,8 @@ class App extends React.Component {
                 <h2>{ items.quote }</h2>
                 <h4>- { items.author }</h4>
                 <h4> {items.word_count}</h4>
-                <h4>Rating: 5 / 5</h4>
+                <h4> QID {items.id}</h4>
+                <h4>Rating: {items.average_rating} / 5</h4>
                 <button onClick={() => {this.callApi('quote')}}>
                     Click here to get a random quote!
                 </button>

@@ -37,15 +37,32 @@ def get_quote():
     line = webapp.db.execute("select * from quotes where id = :id", \
         {"id": id}).fetchall()
 
+    avg_rating = webapp.db.execute("select avg(rating) from quote_ratings where quote_id = :id", \
+        {"id": id}).fetchone()
+
+    
+
     quote_id = line[0][0]
     quote = line[0][1]
     word_count = line[0][2]
+    avg_rating = avg_rating[0]
+    print("average rating: ", end='')
+    print(avg_rating)
+
+    try:
+        avg_rating = int(avg_rating)
+        print(avg_rating)
+    except:
+        print("not an int")
+
+        print(avg_rating)
     
     response = jsonify({
         "id": quote_id,
         "quote": quote,
         "word_count": word_count,
-        "author": "Ron Swanson"
+        "author": "Ron Swanson",
+        "average_rating": avg_rating
     })
 
     response.headers.add("Access-Control-Allow-Origin", "*")
@@ -69,11 +86,15 @@ def get_quote_sized(quote_size):
     quote = line[1]
     word_count = line[2]
 
+    avg_rating = webapp.db.execute("selct * from quote_ratings where quote_id = :q and user_ip = :ip", \
+            {"q": quote_id, "ip": user_ip}).fetchall()
+
     response = jsonify({
         "id": quote_id,
         "quote": quote,
         "word_count": word_count,
-        "author": "Ron Swanson"
+        "author": "Ron Swanson",
+        "average_rating": avg_rating
     })
 
     response.headers.add("Access-Control-Allow-Origin", "*")
@@ -86,14 +107,20 @@ def rating():
         
         # receive post request
         rating = request.get_json()["user_rating"]
-        #uniqueId = request.get_json()["ip"]
-        print(rating)
-        header = request.headers.get('Content-Type')
-        print(header)
-        print(request.environ['REMOTE_ADDR'])
-        print(request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr))
-        print(request.headers["x-forwarded-for"])
-        print(request.environ['HTTP_X_FORWARDED_FOR'])
-        print(request.remote_addr)
-        print("last")
-        return str(header)
+        quote_id = request.get_json()["quote_id"]
+        user_ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+        
+        # check db to ensure unique
+        # if webapp.db.execute("select * from quote_ratings where quote_id = :q and user_ip = :ip", \
+        #     {"q": quote_id, "ip": user_ip}).fetchall():
+        #     print("yup")
+        
+        try:
+            webapp.db.execute("insert into quote_ratings(quote_id, rating, user_ip) values (:quote_id, :rating, :user_ip)", \
+                {"quote_id": quote_id, "rating": rating, "user_ip": user_ip})
+            webapp.db.commit()
+        except:
+            print("no worries, you already rated")
+            return "Already rated this one"
+
+        return "Nice work, rating went through!"
