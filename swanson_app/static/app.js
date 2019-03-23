@@ -93,14 +93,11 @@ class App extends React.Component {
                 <h4>- { items.author }</h4>
                 <h5> (Word Count: {items.word_count})</h5>
                 <br />
-                <h3>Rating</h3>
-                <h4>Average Rating: {items.average_rating} / 5</h4>
-                <h4>Your Rating: {items.user_rating}</h4>
-                <br />
                 <h3>Click below to get a new quote!</h3>
                 <button onClick={() => {this.callApi('quote')}}>
                     Random Quote
                 </button>
+                <br />
                 <button onClick={() => {this.callApi('large')}}>
                 Big Quote
                 </button>
@@ -111,14 +108,22 @@ class App extends React.Component {
                 Small Quote
                 </button>
                 <br /><br />
+                
+
+                <br />
+                <h3>Rating</h3>
                 <h4>How do you like this quote? (Only 1 vote per user)</h4>
                 <button onClick={() => {this.vote(1)}}>1 Star</button>
                 <button onClick={() => {this.vote(2)}}>2 Stars</button>
                 <button onClick={() => {this.vote(3)}}>3 Stars</button>
                 <button onClick={() => {this.vote(4)}}>4 Stars</button>
                 <button onClick={() => {this.vote(5)}}>5 Stars</button>
-                <br />
+                <br />                
                 {message}
+                <br />
+                <h4>Average Rating: {items.average_rating} / 5</h4>
+                <h4>Your Rating: {items.user_rating}</h4>
+                <br />
             </div>
             
         );

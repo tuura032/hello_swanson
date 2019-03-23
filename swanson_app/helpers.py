@@ -10,7 +10,7 @@ def getQuoteRating(quote_id):
         avg_rating = "{:2.1f}".format(avg_rating)
         print(avg_rating)
     except:
-        avg_rating = "Not yet rated!"
+        avg_rating = "Not yet rated"
         print(avg_rating)
 
     return avg_rating

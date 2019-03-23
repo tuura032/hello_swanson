@@ -14,7 +14,7 @@ def get_quote():
     # retrieve quote of random id
     id = random.randint(1, 58)
     line = webapp.db.execute("select * from quotes where id = :id", \
-        {"id": id}).fetchall()
+        {"id": id}).fetchone()
 
     # factor out quote information
     quote_id = line[0][0]
