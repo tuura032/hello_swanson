@@ -118,9 +118,13 @@ def rating():
     if request.method == "POST":
         
         # receive post request
+        has_voted = request.get_json()["has_voted"]
         rating = request.get_json()["user_rating"]
         quote_id = request.get_json()["quote_id"]
         user_ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+
+        if has_voted:
+            return "already voted!"
         
         # Save rating if not yet rated
         try:
