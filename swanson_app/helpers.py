@@ -18,6 +18,7 @@ def getQuoteRating(quote_id):
     
     except:
         print("orignal getQuoteRating didn't work")
+        avg_rating = "Not yet rated"
 
     return avg_rating
 
