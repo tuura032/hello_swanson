@@ -79,9 +79,12 @@ class App extends React.Component {
   }
   
   render() {
+    // get state items
     const { error, isLoaded, items } = this.state;
+    
+    // determine message to display when clicking on vote
     var message;
-    if (displayVoteMessage && (!items.has_voted)) {
+    if (this.state.displayVoteMessage && (!items.has_voted)) {
          message = "Thank you for voting!";
     } else if (has_voted) {
          message = "You already voted!"
@@ -89,6 +92,7 @@ class App extends React.Component {
          message = ""
     }
 
+    // return content
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
