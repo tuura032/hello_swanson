@@ -86,7 +86,7 @@ def get_quote_sized(quote_size):
     quote = line[1]
     word_count = line[2]
 
-    avg_rating = webapp.db.execute("selct * from quote_ratings where quote_id = :q", \
+    avg_rating = webapp.db.execute("select * from quote_ratings where quote_id = :q", \
             {"q": quote_id}).fetchall()
 
     response = jsonify({
