@@ -60,8 +60,8 @@ class App extends React.Component {
   }
 
   vote(rating) {
-    //fetch('https://hello-swanson.herokuapp.com/api/rating', {
-    fetch('http://127.0.0.1:5000/api/rating', {
+    fetch('https://hello-swanson.herokuapp.com/api/rating', {
+    //fetch('http://127.0.0.1:5000/api/rating', {
         method: 'POST',
         headers: {
         Accept: 'application/json',
