@@ -58,22 +58,25 @@ class App extends React.Component {
   }
 
   vote(rating) {
-    console.log(this.state.items.user_rating);
+    if (this.state.items.user_rating === "Not yet rated") {
+        console.log("api not called, already rated");
+    } else {
     
-    fetch('https://hello-swanson.herokuapp.com/api/rating', {
-    //fetch('http://127.0.0.1:5000/api/rating', {
-        method: 'POST',
-        headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-        user_rating: rating,
-        quote_id: this.state.items.id
-        })
-    });
-    //this.setState({hasVoted: true, isLoaded: false});
-    //this.componentDidMount();
+        fetch('https://hello-swanson.herokuapp.com/api/rating', {
+        //fetch('http://127.0.0.1:5000/api/rating', {
+            method: 'POST',
+            headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            user_rating: rating,
+            quote_id: this.state.items.id
+            })
+        });
+        //this.setState({hasVoted: true, isLoaded: false});
+        //this.componentDidMount();
+    }
   }
   
   render() {
