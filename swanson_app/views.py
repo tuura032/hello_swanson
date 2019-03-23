@@ -17,9 +17,9 @@ def get_quote():
         {"id": id}).fetchone()
 
     # factor out quote information
-    quote_id = line[0][0]
-    quote = line[0][1]
-    word_count = line[0][2]
+    quote_id = line[0]
+    quote = line[1]
+    word_count = line[2]
 
     # get and format quote rating
     avg_rating = getQuoteRating(quote_id)
