@@ -1,17 +1,23 @@
 from . import webapp
 
 def getQuoteRating(quote_id):
-    avg_rating = webapp.db.execute("select avg(rating) from quote_ratings where quote_id = :id", \
-            {"id": quote_id}).fetchone()
-    avg_rating = avg_rating[0]
-
     try:
-        #avg_rating = int(avg_rating)
-        avg_rating = "{:2.1f}".format(avg_rating)
+        avg_rating = webapp.db.execute("select avg(rating) from quote_ratings where quote_id = :id", \
+                {"id": quote_id}).fetchone()
+        avg_rating = avg_rating[0]
+        print("LOOK HERE -> first try on avg rating: ", end='')
         print(avg_rating)
+
+        try:
+            #avg_rating = int(avg_rating)
+            avg_rating = "{:2.1f}".format(avg_rating)
+            print(avg_rating)
+        except:
+            avg_rating = "Can't convert avg rating"
+            print(avg_rating)
+    
     except:
-        avg_rating = "Not yet rated"
-        print(avg_rating)
+        print("orignal getQuoteRating didn't work")
 
     return avg_rating
 
