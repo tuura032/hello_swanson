@@ -86,7 +86,7 @@ class App extends React.Component {
     var message;
     if (this.state.displayVoteMessage && (!items.has_voted)) {
          message = "Thank you for voting!";
-    } else if (has_voted) {
+    } else if (items.has_voted) {
          message = "You already voted!"
     } else {
          message = ""
@@ -97,7 +97,7 @@ class App extends React.Component {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
-    } else if (this.state.items.has_voted) {
+    } else if (items.has_voted) {
         return (
             <div className="quote-box">
                 <h2>{ items.quote }</h2>
