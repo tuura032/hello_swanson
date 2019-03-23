@@ -23,8 +23,7 @@ class App extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result,
-            hasVoted: false
+            items: result
           });
         },
         (error) => {
@@ -72,6 +71,7 @@ class App extends React.Component {
         })
     });
     this.setState({hasVoted: true, isLoaded: false});
+    this.componentDidMount();
   }
   
   render() {
