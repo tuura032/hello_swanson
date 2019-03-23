@@ -71,6 +71,7 @@ class App extends React.Component {
         quote_id: this.state.items.id
         })
     });
+    console.log(state.items);
     this.setState({hasVoted: true});
   }
   
@@ -81,6 +82,8 @@ class App extends React.Component {
         message = "Thank you for voting!";
     } else if (hasVoted) {
         message = "You already voted!"
+    } else {
+        message = ""
     }
     if (error) {
       return <div>Error: {error.message}</div>;
