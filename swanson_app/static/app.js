@@ -15,8 +15,8 @@ class App extends React.Component {
 
   componentDidMount() {
     //const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    //const url = "https://hello-swanson.herokuapp.com/api/quote";
-    const url = "http://127.0.0.1:5000/api/quote"
+    const url = "https://hello-swanson.herokuapp.com/api/quote";
+    //const url = "http://127.0.0.1:5000/api/quote"
     fetch(url)
       .then(res => res.json())
       .then(
@@ -37,8 +37,8 @@ class App extends React.Component {
   }
 
   callApi(size) {
-    //const url = 'https://hello-swanson.herokuapp.com/api/'
-    const url = "http://127.0.0.1:5000/api/";
+    const url = 'https://hello-swanson.herokuapp.com/api/'
+    //const url = "http://127.0.0.1:5000/api/";
     fetch(url + size)
       .then(res => res.json())
       .then(
@@ -59,8 +59,8 @@ class App extends React.Component {
   }
 
   vote(rating) {
-    //fetch('https://hello-swanson.herokuapp.com/api/rating', {
-    fetch('http://127.0.0.1:5000/api/rating', {
+    fetch('https://hello-swanson.herokuapp.com/api/rating', {
+    //fetch('http://127.0.0.1:5000/api/rating', {
         method: 'POST',
         headers: {
         Accept: 'application/json',
@@ -123,17 +123,6 @@ class App extends React.Component {
             
         );
       }
-    
-    // if (this.state.liked) {
-    //   return 'You liked this.';
-    // }
-
-    // // Display a "Like" <button>
-    // return (
-    //     <button onClick={() => this.setState({ liked: true })}>
-    //         Get a quote!
-    //     </button>
-    // );
   }
 }
 
