@@ -85,3 +85,4 @@ def rating():
     if request.method == "POST":
         header = request.form.get("user_rating")
         print(header)
+        return True
