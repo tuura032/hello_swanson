@@ -13,7 +13,7 @@ def getQuoteRating(quote_id):
             avg_rating = "{:2.1f}".format(avg_rating)
             print(avg_rating)
         except:
-            avg_rating = "Can't convert avg rating"
+            avg_rating = "Not yet rated"
             print(avg_rating)
     
     except:
@@ -30,5 +30,6 @@ def getUserRating(quote_id, ip):
     except:
         user_rating = "Not yet rated"
     
+    print("user_rating: ", end='')
     print(user_rating)
     return user_rating
