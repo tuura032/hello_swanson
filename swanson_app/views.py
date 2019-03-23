@@ -16,6 +16,8 @@ def get_quote():
     line = webapp.db.execute("select * from quotes where id = :id", \
         {"id": id}).fetchone()
 
+    print(line)
+
     # factor out quote information
     quote_id = line[0]
     quote = line[1]
