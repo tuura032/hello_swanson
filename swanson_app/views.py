@@ -54,14 +54,18 @@ def get_quote():
 def get_quote_sized(quote_size):
 
     # randomly get one quote from db filtered by size
-    if quote_size == "large":
-        line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length > 12) order by RANDOM() LIMIT 1").fetchone()
-    elif quote_size == "medium":
-        line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length < 13 and quote_length > 4) order by RANDOM() LIMIT 1").fetchone()
-    elif quote_size == "small":
-        line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length < 5) order by RANDOM() LIMIT 1").fetchone()
-    else:
-        return redirect("/")
+    try:
+        if quote_size == "large":
+            line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length > 12) order by RANDOM() LIMIT 1").fetchone()
+        elif quote_size == "medium":
+            line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length < 13 and quote_length > 4) order by RANDOM() LIMIT 1").fetchone()
+        elif quote_size == "small":
+            line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length < 5) order by RANDOM() LIMIT 1").fetchone()
+        else:
+            return redirect("/")
+    except:
+        print("something went wrong api/quote_size")
+        line = (1, "Try Again in a moment", 5)
 
     # factor out quote information
     quote_id = line[0]
