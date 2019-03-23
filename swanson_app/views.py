@@ -79,3 +79,9 @@ def get_quote_sized(quote_size):
     response.headers.add("Access-Control-Allow-Origin", "*")
 
     return response
+
+@app.route("/api/rating", methods = ["GET", "POST"])
+def rating():
+    if request.method == "POST":
+        header = request.form.get("user_rating")
+        print(header)
