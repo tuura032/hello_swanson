@@ -8,7 +8,7 @@ class App extends React.Component {
     this.state = { 
         error: null,
         isLoaded: false,
-        //hasVoted: false,
+        displayVoteMessage: false,
         items: []
     };
   }
@@ -44,8 +44,8 @@ class App extends React.Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            items: result
-            //hasVoted: false
+            items: result,
+            displayVoteMessage: false
           });
         },
         (error) => {
@@ -74,21 +74,21 @@ class App extends React.Component {
             quote_id: this.state.items.id
             })
         });
-        //this.setState({hasVoted: true, isLoaded: false});
-        //this.componentDidMount();
     }
+    this.setState({displayVoteMessage: true});
   }
   
   render() {
     const { error, isLoaded, items } = this.state;
-    //var message;
-    // if (hasVoted && (items.user_rating === "Not yet rated")) {
-    //     message = "Thank you for voting!";
-    // } else if (hasVoted) {
-    //     message = "You already voted!"
-    // } else {
-    //     message = ""
-    // }
+    var message;
+    if (displayVoteMessage && (!items.has_voted)) {
+         message = "Thank you for voting!";
+    } else if (has_voted) {
+         message = "You already voted!"
+    } else {
+         message = ""
+    }
+
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -143,8 +143,8 @@ class App extends React.Component {
                 Small Quote
                 </button>
                 <br /><br />
-                
-
+                {message}
+                <br />
                 <br />
                 <h3>Rating</h3>
                 <h4>How do you like this quote? (Only 1 vote per user)</h4>
