@@ -71,8 +71,7 @@ class App extends React.Component {
         quote_id: this.state.items.id
         })
     });
-    console.log(state.items);
-    this.setState({hasVoted: true});
+    this.setState({hasVoted: true, isLoaded: false});
   }
   
   render() {
