@@ -88,6 +88,7 @@ def get_quote_sized(quote_size):
 
     avg_rating = webapp.db.execute("select avg(rating) from quote_ratings where quote_id = :id", \
         {"id": quote_id}).fetchone()
+    avg_rating = avg_rating[0]
 
     try:
         avg_rating = int(avg_rating)
