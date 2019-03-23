@@ -58,7 +58,19 @@ class App extends React.Component {
         }
       )
   }
-  
+
+  vote(rating) {
+    fetch('https://hello-swanson.herokuapp.com/api/rating', {
+        method: 'POST',
+        headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        user_rating: rating
+        }),
+    });
+  }
   
   render() {
     const { error, isLoaded, items } = this.state;
@@ -86,6 +98,10 @@ class App extends React.Component {
                 <button onClick={() => {this.callApi('small')}}>
                 Small Quote
                 </button>
+                <br />
+                <button onClick={() => {this.vote(1)}}>1 Star</button>
+                <button onClick={() => {this.vote(3)}}>3 Stars</button>
+                <button onClick={() => {this.vote(5)}}>5 Stars</button>
             </div>
             
         );
