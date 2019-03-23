@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-        liked: false,
+        urlEndpoint: "quote",
         error: null,
         isLoaded: false,
         items: []
@@ -14,10 +14,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = "https://hello-swanson.herokuapp.com/api/quote";
-    const url2 = "https://127.0.0.1:5000/api/data";
-    fetch(url)
+    //const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://hello-swanson.herokuapp.com/api/";
+    const { urlEndpoint } = this.state;
+    console.log(urlEndpoint);
+    fetch(url + urlEndpoint)
       .then(res => res.json())
       .then(
         (result) => {
@@ -37,11 +38,30 @@ class App extends React.Component {
         }
       )
   }
+
+  callApi(size) {
+    const url = 'https://hello-swanson.herokuapp.com/api/'
+    fetch(url + size)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            items: result // was result.items, referencing data.json
+          });
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )
+  }
   
   
   render() {
     const { error, isLoaded, items } = this.state;
-    console.log(this.state.items.note);
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -53,17 +73,17 @@ class App extends React.Component {
                 <h4>- { items.author }</h4>
                 <h4> {items.word_count}</h4>
                 <h4>Rating: 5 / 5</h4>
-                <button onClick={() => {this.componentDidMount(); this.setState({isLoaded: false});}}>
+                <button onClick={() => {this.callApi('quote')}}>
                     Click here to get a random quote!
                 </button>
                 <br />
-                <button onClick={() => {this.setState({isLoaded: false}); this.callBig();}}>
+                <button onClick={() => {this.callApi('large')}}>
                 Big Quote
                 </button>
-                <button onClick={() => {this.setState({isLoaded: false}); this.callMed();}}>
+                <button onClick={() => {this.callApi('medium')}}>
                 Medium Quote
                 </button>
-                <button onClick={() => {this.setState({isLoaded: false}); this.callSmall();}}>
+                <button onClick={() => {this.callApi('small')}}>
                 Small Quote
                 </button>
             </div>

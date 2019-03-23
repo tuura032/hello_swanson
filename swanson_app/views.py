@@ -33,7 +33,7 @@ def get_data():
 
 @app.route("/api/quote")
 def get_quote():
-    id = random.randint(1, 59)
+    id = random.randint(1, 58)
     line = webapp.db.execute("select * from quotes where id = :id", \
         {"id": id}).fetchall()
 
@@ -54,19 +54,16 @@ def get_quote():
 
 @app.route("/api/<quote_size>")
 def get_quote_sized(quote_size):
-    print(quote_size)
+
+    # randomly get one quote from db filtered by size
     if quote_size == "large":
         line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length > 12) order by RANDOM() LIMIT 1").fetchone()
-        print(line)
     elif quote_size == "medium":
         line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length < 13 and quote_length > 4) order by RANDOM() LIMIT 1").fetchone()
     elif quote_size == "small":
         line = webapp.db.execute("select * from quotes where id IN (select id from quotes where quote_length < 5) order by RANDOM() LIMIT 1").fetchone()
     else:
         return redirect("/")
-
-    # get random index from 0 to array length
-    #rand = random.randint(0, len(line))
 
     quote_id = line[0]
     quote = line[1]
