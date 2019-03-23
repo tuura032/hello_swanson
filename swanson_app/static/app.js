@@ -81,7 +81,7 @@ class App extends React.Component {
   
   render() {
     const { error, isLoaded, items } = this.state;
-    var message;
+    //var message;
     // if (hasVoted && (items.user_rating === "Not yet rated")) {
     //     message = "Thank you for voting!";
     // } else if (hasVoted) {
@@ -93,6 +93,34 @@ class App extends React.Component {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
+    } else if (this.state.items.has_voted) {
+        return (
+            <div className="quote-box">
+                <h2>{ items.quote }</h2>
+                <h4>- { items.author }</h4>
+                <h5> (Word Count: {items.word_count})</h5>
+                <br />
+                <h3>Click below to get a new quote!</h3>
+                <button onClick={() => {this.callApi('quote')}}>
+                    Random Quote
+                </button>
+                <br />
+                <button onClick={() => {this.callApi('large')}}>
+                Big Quote
+                </button>
+                <button onClick={() => {this.callApi('medium')}}>
+                Medium Quote
+                </button>
+                <button onClick={() => {this.callApi('small')}}>
+                Small Quote
+                </button>
+                <br /><br />
+                <br />
+                <h4>Average Rating: {items.average_rating} / 5</h4>
+                <h4>Your Rating: {items.user_rating}</h4>
+                <br />
+            </div>
+        )
     } else {
         return (
             <div className="quote-box">

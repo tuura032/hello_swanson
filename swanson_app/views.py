@@ -35,6 +35,13 @@ def get_quote():
 
     # get users rating
     user_rating = getUserRating(quote_id, str(ip))
+
+    if user_rating == "Not yet rated":
+        has_voted = False
+    else:
+        has_voted = True
+    
+    print(has_voted)
     
     # return JSON response with ACAO header
     response = jsonify({
@@ -43,7 +50,8 @@ def get_quote():
         "word_count": word_count,
         "author": "Ron Swanson",
         "average_rating": avg_rating,
-        "user_rating": user_rating
+        "user_rating": user_rating,
+        "has_voted": has_voted
     })
 
     response.headers.add("Access-Control-Allow-Origin", "*")
