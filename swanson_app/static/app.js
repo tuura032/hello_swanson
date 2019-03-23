@@ -58,7 +58,7 @@ class App extends React.Component {
   }
 
   vote(rating) {
-    if (this.state.items.user_rating === "Not yet rated") {
+    if (this.state.items.has_voted) {
         console.log("api not called, already rated");
     } else {
     
