@@ -1,0 +1,18 @@
+drop table if exists quotes;
+drop table if exists quote_ratings;
+
+
+CREATE TABLE quotes (
+	id serial PRIMARY KEY,
+	quote text UNIQUE NOT NULL,
+	quote_length SMALLINT not null
+);
+
+create table quote_ratings (
+	quote_id INTEGER REFERENCES quotes(id),
+	rating SMALLINT not null,
+	user_ip varchar(20),
+	PRIMARY KEY (quote_id, user_ip)
+);
+
+	
