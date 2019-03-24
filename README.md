@@ -1,7 +1,7 @@
-# hello_swanson is a fullstack application that displays Ron Swanson quotes.
+# hello_swanson: a fullstack application that displays Ron Swanson quotes.
 
 ### Credit
-Quotes were originally taken from and the project was inspirte by
+Quotes were originally taken from and the project was inspired by
 the “Ron Swanson Quotes API” - https://github.com/jamesseanwright/ron-swanson-quotes#ron-swanson-quotes-api
 
 
