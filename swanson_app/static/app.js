@@ -15,8 +15,8 @@ class App extends React.Component {
 
   // set initial load state
   componentDidMount() {
-    //const url = "https://hello-swanson.herokuapp.com/api/quote";
-    const url = "http://127.0.0.1:5000/api/quote";
+    const url = "https://hello-swanson.herokuapp.com/api/quote";
+    //const url = "http://127.0.0.1:5000/api/quote";
     fetch(url)
       .then(res => res.json())
       .then(
@@ -37,8 +37,8 @@ class App extends React.Component {
 
   // retrieve data for all GET requests
   callApi(size) {
-    //const url = 'https://hello-swanson.herokuapp.com/api/'
-    const url = "http://127.0.0.1:5000/api/";
+    const url = 'https://hello-swanson.herokuapp.com/api/';
+    //const url = "http://127.0.0.1:5000/api/";
     fetch(url + size)
       .then(res => res.json())
       .then(
@@ -61,8 +61,8 @@ class App extends React.Component {
   // Send vote via post request if user has not already voted
   vote(rating) {
     if (!this.state.items.has_voted) {
-        //fetch('https://hello-swanson.herokuapp.com/api/rating', {
-        fetch('http://127.0.0.1:5000/api/rating', {
+        fetch('https://hello-swanson.herokuapp.com/api/rating', {
+        //fetch('http://127.0.0.1:5000/api/rating', {
             method: 'POST',
             headers: {
             Accept: 'application/json',
