@@ -8,15 +8,15 @@ class App extends React.Component {
     this.state = { 
         error: null,
         isLoaded: false,
-        displayVoteMessage: false,
+        displayVoteMessage: false, // 
         items: []
     };
   }
 
+  // set initial load state
   componentDidMount() {
-    //const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = "https://hello-swanson.herokuapp.com/api/quote";
-    //const url = "http://127.0.0.1:5000/api/quote"
+    //const url = "https://hello-swanson.herokuapp.com/api/quote";
+    const url = "http://127.0.0.1:5000/api/quote";
     fetch(url)
       .then(res => res.json())
       .then(
@@ -35,9 +35,10 @@ class App extends React.Component {
       )
   }
 
+  // retrieve data for all GET requests
   callApi(size) {
-    const url = 'https://hello-swanson.herokuapp.com/api/'
-    //const url = "http://127.0.0.1:5000/api/";
+    //const url = 'https://hello-swanson.herokuapp.com/api/'
+    const url = "http://127.0.0.1:5000/api/";
     fetch(url + size)
       .then(res => res.json())
       .then(
@@ -57,13 +58,11 @@ class App extends React.Component {
       )
   }
 
+  // Send vote via post request if user has not already voted
   vote(rating) {
-    if (this.state.items.has_voted) {
-        console.log("api not called, already rated");
-    } else {
-    
-        fetch('https://hello-swanson.herokuapp.com/api/rating', {
-        //fetch('http://127.0.0.1:5000/api/rating', {
+    if (!this.state.items.has_voted) {
+        //fetch('https://hello-swanson.herokuapp.com/api/rating', {
+        fetch('http://127.0.0.1:5000/api/rating', {
             method: 'POST',
             headers: {
             Accept: 'application/json',
@@ -81,11 +80,11 @@ class App extends React.Component {
   
   render() {
     // get state items
-    const { error, isLoaded, items } = this.state;
+    const { error, isLoaded, items, displayVoteMessage } = this.state;
     
-    // determine message to display when clicking on vote
+    // display message to confirm vote
     var message;
-    if (this.state.displayVoteMessage && (!items.has_voted)) {
+    if (displayVoteMessage && (!items.has_voted)) {
          message = "Thank you for voting!";
     } else {
          message = ""
@@ -96,7 +95,9 @@ class App extends React.Component {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
-    } else if (items.has_voted || this.state.displayVoteMessage) {
+    } else if (items.has_voted || displayVoteMessage) {
+        
+        // if already voted, don't display vote options
         return (
             <div className="quote-box">
                 <h2>{ items.quote }</h2>
@@ -125,6 +126,8 @@ class App extends React.Component {
             </div>
         )
     } else {
+        
+        // display content with vote options
         return (
             <div className="quote-box">
                 <h2>{ items.quote }</h2>
@@ -147,8 +150,7 @@ class App extends React.Component {
                 </button>
                 <br /><br />
                 {message}
-                <br />
-                <br />
+                <br /><br />
                 <h3>Rating</h3>
                 <h4>How do you like this quote? (Only 1 vote per user)</h4>
                 <button onClick={() => {this.vote(1)}}>1 Star</button>
